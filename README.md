@@ -4,17 +4,18 @@
 A properly segmented cloud architecture where a database (data tier) is only reachable from a specific application subnet — not from the public internet — using Azure Virtual Network (VNet) rules.
 
 ## Architecture
+```
 VNet: learn-cloud-multitier-vnet (10.0.0.0/16)
 │
 ├── app-subnet (10.0.1.0/24)
 │ └── Ubuntu VM — the "application tier"
 │
-└── data-subnet (10.0.2.0/24)
+└─data-subnet (10.0.2.0/24)
 └── (reserved for future data-tier resources)
 
 Azure SQL Database (learn-cloud-multitier-db)
 └── VNet rule: only allows connections from app-subnet
-
+```
 
 **Note on design change:** originally planned to use Azure App Service for the app tier, but pivoted to a VM after hitting a regional App Service quota restriction on this subscription. This preserves the same core lesson — segmenting an app tier from a data tier — using a different compute layer (IaaS instead of PaaS).
 
